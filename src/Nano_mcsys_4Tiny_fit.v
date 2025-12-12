@@ -88,14 +88,14 @@ module Nano_mcsys_4Tiny
     wire [31:0] R_word;
     
     //instantiations:
-    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(1)) my_ram
-    (.clk(mxd_mem_clk), .we(mxd_ram_we), .datain(mxd_ram_din), .address(mxd_ram_add[0:0]), .dataout(cpu2ram_dout));
+    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(2)) my_ram
+    (.clk(mxd_mem_clk), .we(mxd_ram_we), .datain(mxd_ram_din), .address(mxd_ram_add[1:0]), .dataout(cpu2ram_dout));
 
-    sync_ram #(.DATA_WIDTH(8), .ADD_WIDTH(1)) my_rom
-    (.clk(mxd_mem_clk), .we(mxd_rom_we), .datain(mxd_rom_din), .address(mxd_rom_add[0:0]), .dataout(cpu2rom_dout));
+    sync_ram #(.DATA_WIDTH(8), .ADD_WIDTH(2)) my_rom
+    (.clk(mxd_mem_clk), .we(mxd_rom_we), .datain(mxd_rom_din), .address(mxd_rom_add[1:0]), .dataout(cpu2rom_dout));
 
-    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(1)) my_stack
-    (.clk(mem_clk), .we(cpu2stk_we), .datain(cpu2stk_din), .address(cpu2stk_add[0:0]), .dataout(cpu2stk_dout));
+    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(2)) my_stack
+    (.clk(mem_clk), .we(cpu2stk_we), .datain(cpu2stk_din), .address(cpu2stk_add[1:0]), .dataout(cpu2stk_dout));
 
     slave_spi4nano my_NanoSPI
     (
