@@ -1,7 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 //=============================================================================
-// Entidad Nano_mcsys_4Tiny_fit con CPU Nano, con memoria que cabe en el espacio de Tiny Tapeout  (64x16 RAM; 128x8 ROM; 16x16 Stack) y comunicacion SPI y
-// bloques perifericos para operar con interrupciones.
+// Entidad Nano_mcsys_4Tiny_fit, que cabe en 8x2 tiles de Tiny Tapeout, 
+// con CPU Nano, con memoria minima (32x16 RAM; 256x8 ROM; 16x16 Stack),
+// comunicacion SPI y bloques perifericos para operar con interrupciones.
 //  En esta version:
 //  * La entrada de reset (NRST) es activa en bajo.
 //  * Se emplean puertos de salida OUT8B y OUT4B para monitorizacion de registros de Status, Flags y R.
@@ -90,14 +91,12 @@ module Nano_mcsys_4Tiny
     //instantiations:
     sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(5)) my_ram
     (.clk(mxd_mem_clk), .we(mxd_ram_we), .datain(mxd_ram_din), .address(mxd_ram_add[4:0]), .dataout(cpu2ram_dout));
-    //sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(6)) my_ram
-    //(.clk(mxd_mem_clk), .we(mxd_ram_we), .datain(mxd_ram_din), .address(mxd_ram_add[5:0]), .dataout(cpu2ram_dout));
 
     sync_ram #(.DATA_WIDTH(8), .ADD_WIDTH(8)) my_rom
     (.clk(mxd_mem_clk), .we(mxd_rom_we), .datain(mxd_rom_din), .address(mxd_rom_add[7:0]), .dataout(cpu2rom_dout));
 
-    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(5)) my_stack
-    (.clk(mem_clk), .we(cpu2stk_we), .datain(cpu2stk_din), .address(cpu2stk_add[4:0]), .dataout(cpu2stk_dout));
+    sync_ram #(.DATA_WIDTH(16), .ADD_WIDTH(4)) my_stack
+    (.clk(mem_clk), .we(cpu2stk_we), .datain(cpu2stk_din), .address(cpu2stk_add[3:0]), .dataout(cpu2stk_dout));
 
     slave_spi4nano my_NanoSPI
     (
